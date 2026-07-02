@@ -81,7 +81,7 @@ img { display: block; max-width: 100%; }
   align-items: center;
   justify-content: center;
   /* push content down from nav pill; stars need room at edges */
-  padding: 100px clamp(60px, 7vw, 120px) 60px;
+  padding: 100px clamp(16px, 5vw, 120px) 60px;
   overflow: visible; /* stars must not be clipped */
 }
 
@@ -465,10 +465,39 @@ img { display: block; max-width: 100%; }
   .footer-nav { align-items: center; }
 }
 
+@media (max-width: 768px) {
+  .hero-section      { padding: 90px clamp(16px, 4vw, 60px) 50px; }
+  .statement-section { padding: 60px clamp(20px, 5vw, 60px); min-height: 40vh; }
+  .services-section  { padding: 60px clamp(20px, 4vw, 60px); }
+  .projects-section  { padding: 60px clamp(20px, 4vw, 60px); }
+  .contact-section   { padding: 60px clamp(20px, 4vw, 60px); }
+  .footer-section    { padding: 50px clamp(20px, 4vw, 60px); }
+  .contact-inner     { grid-template-columns: 1fr; }
+  .project-card      { gap: 28px; min-height: auto; }
+}
+
 @media (max-width: 600px) {
-  .hero-row { font-size: clamp(3.4rem, 19vw, 6rem); }
-  .hero-photo-slot { width: min(64vw, 240px); }
-  .traveling-photo { width: min(64vw, 240px); }
-  .dynamic-island { top: 14px; }
-  .about-left { gap: 24px; }
+  .hero-section     { padding: 80px 16px 40px; }
+  .hero-row         { font-size: clamp(2.8rem, 17vw, 5rem); }
+  .hero-photo-slot  { width: min(58vw, 220px); }
+  .traveling-photo  { width: min(58vw, 220px); }
+  .hero-star        { display: none; }
+  .dynamic-island   { top: 14px; }
+  .statement-text   { font-size: clamp(1.3rem, 5vw, 2rem); }
+  .about-left       { gap: 20px; }
+  .about-hey        { font-size: clamp(3.2rem, 16vw, 6rem); }
+  .project-card     { gap: 20px; min-height: auto; }
+  .contact-heading  { font-size: clamp(3rem, 12vw, 5rem); }
+  .social-row       { margin-top: 24px; }
+  .footer-content   { gap: 28px; }
+}
+
+@media (max-width: 480px) {
+  .hero-row          { font-size: clamp(2.4rem, 15vw, 4rem); }
+  .about-hey         { font-size: clamp(3rem, 14vw, 5rem); }
+  .services-heading,
+  .projects-heading  { font-size: clamp(2rem, 9vw, 3rem); }
+  .contact-heading   { font-size: clamp(2.5rem, 11vw, 4rem); }
+  .footer-heading    { font-size: clamp(1.6rem, 7vw, 2.5rem); }
+  .statement-text    { font-size: clamp(1.2rem, 4.5vw, 1.8rem); }
 }
