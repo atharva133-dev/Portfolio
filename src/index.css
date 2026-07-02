@@ -474,6 +474,7 @@ img { display: block; max-width: 100%; }
   .footer-section    { padding: 50px clamp(20px, 4vw, 60px); }
   .contact-inner     { grid-template-columns: 1fr; }
   .project-card      { gap: 28px; min-height: auto; }
+  .footer-bg-text    { font-size: clamp(4rem, 16vw, 10rem); }
 }
 
 @media (max-width: 600px) {
@@ -490,6 +491,7 @@ img { display: block; max-width: 100%; }
   .contact-heading  { font-size: clamp(3rem, 12vw, 5rem); }
   .social-row       { margin-top: 24px; }
   .footer-content   { gap: 28px; }
+  .footer-bg-text   { font-size: clamp(3rem, 14vw, 6rem); }
 }
 
 @media (max-width: 480px) {
