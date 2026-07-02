@@ -463,7 +463,7 @@ export default function App() {
               <h2 className="contact-heading">Let's talk.</h2>
               <p className="contact-sub">Have a project or need help? Fill out the form, and we'll get back to you soon.</p>
               <div className="social-row" aria-label="Social links">
-                <a href="https://instagram.com/" aria-label="Instagram"><Instagram size={18} /></a>
+                <a href="https://www.instagram.com/atharva_lmao?igsh=NnplZDVrdXA4NGFp&utm_source=qr" aria-label="Instagram" target="_blank" rel="noreferrer"><Instagram size={18} /></a>
                 <a href="https://www.linkedin.com/in/atharva-shimpi-b6a4a4251/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><Linkedin size={18} /></a>
                 <a href="https://github.com/atharva133-dev" aria-label="GitHub" target="_blank" rel="noreferrer"><Github size={18} /></a>
               </div>
