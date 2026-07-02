@@ -486,8 +486,7 @@ export default function App() {
           <div className="footer-bg-text fade-up">Atharva</div>
           <div className="footer-content">
             <div className="footer-left fade-up">
-              <h3 className="footer-heading">Scaling 
-Start-ups for Growth</h3>
+              <h3 className="footer-heading">Turning Logic into Products</h3>
             </div>
             <div className="footer-center fade-up">
               <h4 className="footer-subheading">Quick Links</h4>
