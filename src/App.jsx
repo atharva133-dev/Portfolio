@@ -311,7 +311,7 @@ export default function App() {
 
   const navLinks = [
     { label: "About Me", href: "#about" },
-    { label: "Services", href: "#services" },
+    { label: "TechStack", href: "#services" },
     { label: "Projects", href: "#projects" },
     { label: "Contact",  href: "#contact" },
   ];
@@ -418,7 +418,7 @@ export default function App() {
 
         {/* ── SERVICES ── */}
         <section id="services" className="services-section">
-          <h2 className="services-heading reveal-row">Services</h2>
+          <h2 className="services-heading reveal-row">TechStack</h2>
           <div className="services-list">
             {services.map(s => (
               <article key={s.title} className="service-row reveal-row">
@@ -494,7 +494,7 @@ Start-ups for Growth</h3>
               <nav className="footer-nav">
                 <a href="#hero">Home</a>
                 <a href="#about">About Me</a>
-                <a href="#services">Services</a>
+                <a href="#services">TechStack</a>
                 <a href="#projects">Works</a>
                 <a href="#contact">Contact</a>
               </nav>
