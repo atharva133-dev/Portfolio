@@ -295,10 +295,10 @@ export default function App() {
         <section id="hero" ref={heroRef} className="hero-section">
           <div className="hero-content">
 
-            {/* SOFTWARE — z-index 1, behind photo slot */}
+            {/* Computer— z-index 1, behind photo slot */}
             <div className="hero-row hero-row-back" ref={softwareRef}>
               <StarIcon ref={starLeftRef} className="hero-star hero-star-left" />
-              <span>Software</span>
+              <span>Computer</span>
             </div>
 
             {/* ENGINEER — z-index 3, in front of photo slot */}
@@ -425,7 +425,8 @@ export default function App() {
           <div className="footer-bg-text fade-up">Atharva</div>
           <div className="footer-content">
             <div className="footer-left fade-up">
-              <h3 className="footer-heading">Software Engineer</h3>
+              <h3 className="footer-heading">Scaling 
+Start-ups for Growth</h3>
             </div>
             <div className="footer-center fade-up">
               <h4 className="footer-subheading">Quick Links</h4>

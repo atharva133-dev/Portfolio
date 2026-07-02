@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated": "2026-07-02T06:38:44.324Z",
+  "updated": "2026-07-02T08:14:59.803Z",
   "patterns": [
     {
       "id": "pattern-001",
@@ -8,13 +8,27 @@
       "language": "unknown",
       "description": "greedy-toasting-petal.md — ui 패턴 (unknown)",
       "score": 100,
-      "success_count": 25,
+      "success_count": 29,
       "failure_count": 0,
       "tags": [
         "ui"
       ],
       "created": "2026-07-02T06:16:10.780Z",
-      "updated": "2026-07-02T06:38:44.323Z"
+      "updated": "2026-07-02T08:14:59.802Z"
+    },
+    {
+      "id": "pattern-002",
+      "category": "db",
+      "language": "unknown",
+      "description": "verify-responsive.mjs — db 패턴 (unknown)",
+      "score": 53,
+      "success_count": 2,
+      "failure_count": 0,
+      "tags": [
+        "db"
+      ],
+      "created": "2026-07-02T08:01:43.631Z",
+      "updated": "2026-07-02T08:02:25.692Z"
     }
   ],
   "anti_patterns": []
