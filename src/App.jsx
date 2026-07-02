@@ -60,6 +60,8 @@ export default function App() {
   // The ONE photo element — fixed, travels the whole page
   const photoRef        = useRef(null);
   const photoCardRef    = useRef(null);
+  const frontRef        = useRef(null);
+  const backRef         = useRef(null);
   const heroPhotoSlotRef = useRef(null);
   const aboutPhotoSlotRef = useRef(null);
   const starLeftRef     = useRef(null);
@@ -127,22 +129,20 @@ export default function App() {
             { x: -80, y: -150, opacity: 0, rotate: -20, duration: 1, ease: "none" }, 0)
           .to(starRightRef.current,
             { x: 80, y: -120, opacity: 0, rotate:  24, duration: 1, ease: "none" }, 0)
-          // ONE continuous smooth travel, scale, and 180 flip
+          // Travel + scale — scrubbed with scroll
           .to(photoRef.current, {
             x: targetX,
             y: targetY,
             scale: targetScale,
-            rotateY: 180,
             duration: 1,
             ease: "none",
           }, 0)
-          // Turn red dynamically halfway through the flip
-          .to(photoCardRef.current, {
-            backgroundColor: "#C0272A",
-            boxShadow: "0 32px 90px rgba(192,39,42,0.35)",
-            duration: 0.2,
-            ease: "none",
-          }, 0.4);
+          // Z-pop: card surges towards viewer at mid-flip then settles back
+          .to(photoCardRef.current, { z: 140, duration: 0.5, ease: "none" }, 0)
+          .to(photoCardRef.current, { z: 0,   duration: 0.5, ease: "none" }, 0.5)
+          // Front face flips away (0→180), back face flips into view (180→360)
+          .to(frontRef.current, { rotateY: 180, duration: 1, ease: "none" }, 0)
+          .fromTo(backRef.current, { rotateY: 180 }, { rotateY: 360, duration: 1, ease: "none" }, 0);
       });
 
       mm.add("(max-width: 767px)", () => {
@@ -175,21 +175,20 @@ export default function App() {
             { yPercent: -90, opacity: 0.15, duration: 1, ease: "none" }, 0)
           .to(".hero-star",
             { y: -90, opacity: 0, duration: 1, ease: "none" }, 0)
-          // ONE continuous smooth travel, scale, and 180 flip
+          // Travel + scale — scrubbed with scroll
           .to(photoRef.current, {
             x: targetX,
             y: targetY,
             scale: targetScale,
-            rotateY: 180,
             duration: 1,
             ease: "none",
           }, 0)
-          // Turn red dynamically halfway through the flip
-          .to(photoCardRef.current, {
-            backgroundColor: "#C0272A",
-            duration: 0.2,
-            ease: "none",
-          }, 0.4);
+          // Z-pop mid-flip
+          .to(photoCardRef.current, { z: 100, duration: 0.5, ease: "none" }, 0)
+          .to(photoCardRef.current, { z: 0,   duration: 0.5, ease: "none" }, 0.5)
+          // Front face flips away (0→180), back face flips into view (180→360)
+          .to(frontRef.current, { rotateY: 180, duration: 1, ease: "none" }, 0)
+          .fromTo(backRef.current, { rotateY: 180 }, { rotateY: 360, duration: 1, ease: "none" }, 0);
       });
 
       /* ── WORD REVEAL — pinned, scrubbed ── */
@@ -265,7 +264,12 @@ export default function App() {
       {/* ── THE ONE PHOTO — fixed, travels from hero to about ── */}
       <div ref={photoRef} className="traveling-photo" aria-hidden="true">
         <div ref={photoCardRef} className="portrait-card">
-          <img src={portrait} alt="Atharva" />
+          <div ref={frontRef} className="portrait-face portrait-front">
+            <img src={portrait} alt="Atharva" />
+          </div>
+          <div ref={backRef} className="portrait-face portrait-back">
+            <img src={portrait} alt="Atharva" />
+          </div>
         </div>
       </div>
 

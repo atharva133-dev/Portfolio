@@ -129,27 +129,45 @@ img { display: block; max-width: 100%; }
   width: clamp(180px, 20vw, 290px);
   z-index: 50; /* Above nav and content during travel */
   pointer-events: none;
-  perspective: 1000px;
+  perspective: 1200px;
   will-change: transform;
 }
 
 .portrait-card {
-  width: 100%; height: 100%; border-radius: 12px;
-  background: rgba(15,15,15,0.82); padding: 6px;
-  box-shadow: 0 24px 72px rgba(15,15,15,0.32);
-  will-change: transform, box-shadow;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 12px;
+  background: transparent;
+  will-change: transform;
   transform-style: preserve-3d;
 }
-.portrait-card img {
-  width: 100%; height: 100%; border-radius: 8px;
-  object-fit: cover; filter: saturate(0.85) contrast(1.08);
+
+.portrait-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.portrait-face img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) contrast(1.08);
+}
+.portrait-back {
+  transform: rotateY(180deg);
+}
+.portrait-back img {
+  filter: grayscale(100%) saturate(0.85) contrast(1.08);
 }
 
 /* Hero photo slot — invisible spacer matching traveling-photo size */
 .hero-photo-slot {
   width: clamp(180px, 20vw, 290px);
   aspect-ratio: 3/4;
-  margin-top: -5.5rem;
+  margin-top: 2rem;
   align-self: center;
   visibility: hidden;
   pointer-events: none;
