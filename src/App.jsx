@@ -3,11 +3,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowUpRight,
+  Github,
   Instagram,
   Linkedin,
-  Twitter,
-  Youtube,
-  X,
 } from "lucide-react";
 import portrait from "./assets/portrait-placeholder.png";
 
@@ -27,11 +25,13 @@ const projects = [
     name: "NeighbourHub", status: "Live-ready concept",
     description: "A real-time MERN stack community notice board for posts, local updates, and smarter category suggestions.",
     tags: ["MongoDB", "Express", "React", "Node.js", "Socket.io", "Gemini API"],
+    link: "https://github.com/atharva133-dev/NeighbourHubb",
   },
   {
     name: "VBS", status: "Secure banking app",
     description: "Virtual Banking System with account flows, transaction handling, and structured backend persistence.",
     tags: ["Java", "Spring Boot", "SQL"],
+    link: "https://github.com/atharva133-dev/VBS",
   },
   { name: "Coming Soon", status: "In progress", description: "New project launching soon.", tags: [], muted: true },
   { name: "Coming Soon", status: "In progress", description: "Reserved slot for the next shipped build.", tags: [], muted: true },
@@ -69,6 +69,10 @@ export default function App() {
   const statementRef    = useRef(null);
   const wordRefs        = useRef([]);
   const [navOpen, setNavOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", project: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
 
   useLayoutEffect(() => {
     const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -239,13 +243,69 @@ export default function App() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (statusMessage) {
+      setStatusMessage("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const d = new FormData(e.currentTarget);
-    const name    = d.get("name")?.toString().trim()    || "Portfolio visitor";
-    const email   = d.get("email")?.toString().trim()   || "No email provided";
-    const project = d.get("project")?.toString().trim() || "No project details.";
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Portfolio inquiry from ${name}`)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nProject:\n${project}`)}`;
+
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const project = formData.project.trim();
+
+    if (!name || !email || !project) {
+      setStatusMessage("Something went wrong. Try again.");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatusMessage("Something went wrong. Try again.");
+      return;
+    }
+
+    if (!accessKey) {
+      setStatusMessage("Something went wrong. Try again.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatusMessage("");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name,
+          email,
+          message: project,
+          subject: `New project inquiry from ${name}`,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error("Submission failed");
+      }
+
+      setFormData({ name: "", email: "", project: "" });
+      setStatusMessage("Message sent! I'll get back to you soon.");
+    } catch {
+      setStatusMessage("Something went wrong. Try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const navLinks = [
@@ -385,7 +445,7 @@ export default function App() {
                 <div className="project-footer">
                   <Tags items={p.tags} />
                   {!p.muted && (
-                    <a href="#contact" className="project-link" aria-label={`Ask about ${p.name}`}>
+                    <a href={p.link} target="_blank" rel="noreferrer" className="project-link" aria-label={`View ${p.name} on GitHub`}>
                       <ArrowUpRight size={18} />
                     </a>
                   )}
@@ -402,20 +462,20 @@ export default function App() {
               <h2 className="contact-heading">Let's talk.</h2>
               <p className="contact-sub">Have a project or need help? Fill out the form, and we'll get back to you soon.</p>
               <div className="social-row" aria-label="Social links">
-                <a href="https://x.com/"         aria-label="X (Twitter)"><Twitter   size={18} /></a>
                 <a href="https://instagram.com/" aria-label="Instagram"><Instagram size={18} /></a>
-                <a href="https://linkedin.com/"  aria-label="LinkedIn"><Linkedin  size={18} /></a>
-                <a href="https://youtube.com/"   aria-label="YouTube"><Youtube   size={18} /></a>
+                <a href="https://www.linkedin.com/in/atharva-shimpi-b6a4a4251/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><Linkedin size={18} /></a>
+                <a href="https://github.com/atharva133-dev" aria-label="GitHub" target="_blank" rel="noreferrer"><Github size={18} /></a>
               </div>
             </div>
             <form className="contact-form fade-up" onSubmit={handleSubmit}>
-              <label><span>Name</span><input name="name" type="text" placeholder="Enter your name" required /></label>
-              <label><span>Email</span><input name="email" type="email" placeholder="Enter your email" required /></label>
+              <label><span>Name</span><input name="name" type="text" value={formData.name} onChange={handleChange} placeholder="Enter your name" required /></label>
+              <label><span>Email</span><input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" required /></label>
               <label>
                 <span>Your Project</span>
-                <textarea name="project" placeholder="Tell us about your project" rows={5} required />
+                <textarea name="project" value={formData.project} onChange={handleChange} placeholder="Tell us about your project" rows={5} required />
               </label>
-              <button type="submit">Submit</button>
+              <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending..." : "Submit"}</button>
+              {statusMessage && <p role="status">{statusMessage}</p>}
             </form>
           </div>
         </section>
