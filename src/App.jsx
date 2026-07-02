@@ -6,6 +6,7 @@ import {
   Github,
   Instagram,
   Linkedin,
+  X,
 } from "lucide-react";
 import portrait from "./assets/portrait-placeholder.png";
 
@@ -336,7 +337,7 @@ export default function App() {
       {/* ── NAV ── */}
       <nav className="dynamic-island" aria-label="Primary navigation">
         <a href="#hero" className="island-name">Atharva</a>
-        <button className="island-btn" aria-label="Toggle menu" aria-expanded={navOpen}
+        <button className={`island-btn${navOpen ? " is-open" : ""}`} aria-label="Toggle menu" aria-expanded={navOpen}
           onClick={() => setNavOpen(v => !v)}>
           {navOpen ? <X size={17} strokeWidth={2.8} /> : <span className="dots">···</span>}
         </button>
