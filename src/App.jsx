@@ -541,6 +541,10 @@ export default function App() {
             <div className="footer-right fade-up">
               <h4 className="footer-subheading">Contact</h4>
               <a href={`mailto:${CONTACT_EMAIL}`} className="footer-email">{CONTACT_EMAIL}</a>
+              <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="footer-linkedin">
+                <Linkedin size={17} />
+                <span>LinkedIn</span>
+              </a>
             </div>
           </div>
         </footer>
