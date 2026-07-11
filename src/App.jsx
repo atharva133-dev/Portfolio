@@ -6,6 +6,8 @@ import {
   Github,
   Instagram,
   Linkedin,
+  FileText,
+  Rocket,
   X,
 } from "lucide-react";
 import portrait from "./assets/portrait-placeholder.png";
@@ -13,12 +15,13 @@ import portrait from "./assets/portrait-placeholder.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const CONTACT_EMAIL = "atharvashimpis8@gmail.com";
+const LINKEDIN_URL = "https://www.linkedin.com/in/atharva-shimpi-b6a4a4251/";
 
 const services = [
   { title: "MERN Stack Developer",       tags: ["MongoDB", "Express", "React", "Node.js", "Full-Stack Apps"] },
+  { title: "Python & SQL Handling",       tags: ["Python", "SQL", "Database Handling"] },
   { title: "Java & Spring Boot",          tags: ["Java", "Spring Boot", "REST APIs", "Backend Systems"] },
   { title: "AI-Integrated Applications", tags: ["Gemini API", "Smart Features", "Automation"] },
-  { title: "Python & SQL Handling",       tags: ["Python", "SQL", "Database Handling"] },
 ];
 
 const projects = [
@@ -26,7 +29,8 @@ const projects = [
     name: "NeighbourHub", status: "Live-ready concept",
     description: "A real-time MERN stack community notice board for posts, local updates, and smarter category suggestions.",
     tags: ["MongoDB", "Express", "React", "Node.js", "Socket.io", "Gemini API"],
-    link: "https://github.com/atharva133-dev/NeighbourHubb",
+    link: "https://github.com/atharva133-dev/NeighbourHubb.git",
+    liveLink: "https://neighbour1.vercel.app/",
   },
   {
     name: "VBS", status: "Secure banking app",
@@ -388,6 +392,16 @@ export default function App() {
                 currently building<br />
                 NeighbourHub.
               </p>
+              <div className="about-actions">
+                <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="about-action-btn">
+                  <Linkedin size={17} />
+                  <span>LinkedIn</span>
+                </a>
+                <a href="/resume.pdf" target="_blank" rel="noreferrer" className="about-action-btn">
+                  <FileText size={17} />
+                  <span>Resume</span>
+                </a>
+              </div>
             </div>
 
             {/* MIDDLE: photo slot (empty, just holds space for traveling photo) */}
@@ -446,9 +460,35 @@ export default function App() {
                 <div className="project-footer">
                   <Tags items={p.tags} />
                   {!p.muted && (
-                    <a href={p.link} target="_blank" rel="noreferrer" className="project-link" aria-label={`View ${p.name} on GitHub`}>
-                      <ArrowUpRight size={18} />
-                    </a>
+                    <div className="project-actions">
+                      <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-link"
+                        aria-label={`View ${p.name} on GitHub`}
+                      >
+                        <Github size={16} />
+                        <span>GitHub</span>
+                      </a>
+                      {p.liveLink ? (
+                        <a
+                          href={p.liveLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="project-link is-live"
+                          aria-label={`Open live ${p.name} project`}
+                        >
+                          <Rocket size={16} />
+                          <span>Go Live</span>
+                        </a>
+                      ) : (
+                        <span className="project-link is-live is-disabled" aria-disabled="true">
+                          <Rocket size={16} />
+                          <span>Go Live</span>
+                        </span>
+                      )}
+                    </div>
                   )}
                 </div>
               </article>
@@ -464,7 +504,7 @@ export default function App() {
               <p className="contact-sub">Have a project or need help? Fill out the form, and we'll get back to you soon.</p>
               <div className="social-row" aria-label="Social links">
                 <a href="https://www.instagram.com/atharva_lmao?igsh=NnplZDVrdXA4NGFp&utm_source=qr" aria-label="Instagram" target="_blank" rel="noreferrer"><Instagram size={18} /></a>
-                <a href="https://www.linkedin.com/in/atharva-shimpi-b6a4a4251/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><Linkedin size={18} /></a>
+                <a href={LINKEDIN_URL} aria-label="LinkedIn" target="_blank" rel="noreferrer"><Linkedin size={18} /></a>
                 <a href="https://github.com/atharva133-dev" aria-label="GitHub" target="_blank" rel="noreferrer"><Github size={18} /></a>
               </div>
             </div>
